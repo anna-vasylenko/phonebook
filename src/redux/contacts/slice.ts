@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
 import {
   addContact,
   deleteContact,
   fetchContacts,
   updateContact,
 } from "./operations";
-import { handleFulFilled, handlePending, handleRejected } from "../handlers";
 import { logOut } from "../auth/operations";
+import { Contact, ContactsState } from "./types";
 
-const initialState = {
+const initialState: ContactsState = {
   items: [],
   currentContact: null,
   loading: false,
@@ -19,7 +19,7 @@ const contactsSlice = createSlice({
   name: "contacts",
   initialState,
   reducers: {
-    setCurrentContact(state, action) {
+    setCurrentContact(state, action: PayloadAction<Contact | null>) {
       state.currentContact = action.payload;
     },
   },
@@ -40,13 +40,45 @@ const contactsSlice = createSlice({
       })
       .addCase(updateContact.fulfilled, (state, action) => {
         state.items = state.items.map((item) =>
-          item.id === state.currentContact.id ? { ...action.payload } : item
+          item.id === state.currentContact?.id ? { ...action.payload } : item
         );
         state.currentContact = null;
       })
-      .addMatcher(({ type }) => type.endsWith("pending"), handlePending)
-      .addMatcher(({ type }) => type.endsWith("rejected"), handleRejected)
-      .addMatcher(({ type }) => type.endsWith("fulfilled"), handleFulFilled);
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.fulfilled,
+          addContact.fulfilled,
+          deleteContact.fulfilled,
+          updateContact.fulfilled
+        ),
+        (state) => {
+          state.loading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          addContact.pending,
+          deleteContact.pending,
+          updateContact.pending
+        ),
+        (state) => {
+          state.error = null;
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          addContact.rejected,
+          deleteContact.rejected,
+          updateContact.rejected
+        ),
+        (state, action) => {
+          state.error = action.payload as string;
+          state.loading = false;
+        }
+      );
   },
 });
 
