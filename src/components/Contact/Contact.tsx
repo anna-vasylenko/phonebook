@@ -4,9 +4,12 @@ import { useDispatch } from "react-redux";
 import s from "./Contact.module.css";
 import { deleteContact } from "../../redux/contacts/operations";
 import { setCurrentContact } from "../../redux/contacts/slice";
+import React from "react";
+import { Contact } from "../../redux/contacts/types";
+import { useAppDispatch } from "../../hooks/hook";
 
-const Contact = ({ id, name, number }) => {
-  const dispatch = useDispatch();
+const Contact: React.FC<Contact> = ({ id, name, phone }: Contact) => {
+  const dispatch = useAppDispatch();
 
   return (
     <div className={s.contact}>
@@ -17,7 +20,7 @@ const Contact = ({ id, name, number }) => {
         </div>
         <div className={s.iconWrapper}>
           <MdPhoneIphone />
-          <p className={s.number}>{number}</p>
+          <p className={s.number}>{phone}</p>
         </div>
       </div>
       <div className={s.buttonsWraper}>
@@ -29,7 +32,7 @@ const Contact = ({ id, name, number }) => {
         </button>
         <button
           className={s.changeButton}
-          onClick={() => dispatch(setCurrentContact({ id, name, number }))}
+          onClick={() => dispatch(setCurrentContact({ id, name, phone }))}
         >
           Update
         </button>

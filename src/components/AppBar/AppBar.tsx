@@ -5,10 +5,11 @@ import UserMenu from "../UserMenu/UserMenu";
 import AuthNav from "../AuthNav/AuthNav";
 import s from "./AppBar.module.css";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hook";
 
-const AppBar = () => {
-  const user = useSelector(selectUser);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+const AppBar: React.FC = () => {
+  const user = useAppSelector(selectUser);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   return (
     <header className={s.header}>

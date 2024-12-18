@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import s from "./AuthNav.module.css";
 
-const AuthNav = () => {
+const AuthNav: React.FC = () => {
   return (
     <div>
       <ul className={s.listNav}>

@@ -3,7 +3,7 @@ import Contact from "../Contact/Contact";
 import s from "./ContactList.module.css";
 import { selectFilteredContacts } from "../../redux/filters/selectors";
 
-const ContactList = () => {
+const ContactList: React.FC = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
   return (
     <ul className={s.contactsList}>
