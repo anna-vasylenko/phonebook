@@ -1,7 +1,7 @@
 export type Contact = {
   id: string;
   name: string;
-  phone: string;
+  number: string;
 };
 
 export type ContactsState = {
@@ -13,7 +13,7 @@ export type ContactsState = {
 
 export type NewContact = {
   name: string;
-  phone: string;
+  number: string;
 };
 
 export type UpdateContact = { id: Contact["id"] } & Partial<

@@ -1,20 +1,32 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
-import { contactSchema } from "../../helpers/contactSchema";
-import s from "./ContactUpdateForm.module.css";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+
 import { updateContact } from "../../redux/contacts/operations";
 import { setCurrentContact } from "../../redux/contacts/slice";
+import { NewContact } from "../../redux/contacts/types";
+import { contactSchema } from "../../helpers/contactSchema";
+import { useAppDispatch } from "../../hooks/hook";
+import { ContactType } from "../Contact/Contact.types";
 
-const ContactUpdateForm = ({ name, number, id }) => {
-  const dispatch = useDispatch();
+import s from "./ContactUpdateForm.module.css";
 
-  const handleSubmit = (values, options) => {
+const initialValues: NewContact = {
+  name: "",
+  number: "",
+};
+
+const ContactUpdateForm: React.FC<ContactType> = ({ name, number, id }) => {
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (
+    values: NewContact,
+    options: FormikHelpers<NewContact>
+  ) => {
     dispatch(updateContact({ name: values.name, number: values.number, id }));
     options.resetForm();
   };
 
   return (
-    <Formik
+    <Formik<NewContact>
       initialValues={{ name, number }}
       onSubmit={handleSubmit}
       validationSchema={contactSchema}

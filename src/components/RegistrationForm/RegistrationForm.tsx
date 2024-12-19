@@ -1,20 +1,24 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
-import s from "./RegistrationForm.module.css";
-import { registrationSchema } from "../../helpers/registrationSchema";
-import { register } from "../../redux/auth/operations";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 
-const initialValues = {
+import { register } from "../../redux/auth/operations";
+import { NewUser } from "../../redux/auth/types";
+import { registrationSchema } from "../../helpers/registrationSchema";
+import { useAppDispatch } from "../../hooks/hook";
+
+import s from "./RegistrationForm.module.css";
+
+const initialValues: NewUser = {
   name: "",
   email: "",
   password: "",
 };
 
-const RegistrationForm = () => {
-  const dispatch = useDispatch();
+const RegistrationForm: React.FC = () => {
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (values, options) => {
+  const handleSubmit = (values: NewUser, options: FormikHelpers<NewUser>) => {
     dispatch(register(values));
     options.resetForm();
   };

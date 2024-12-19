@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { Contact, ContactsState, NewContact } from "./types";
 
 export const fetchContacts = createAsyncThunk<
@@ -65,9 +66,9 @@ export const updateContact = createAsyncThunk<
   Contact,
   Contact,
   { rejectValue: string }
->("contacts/updateContact", async ({ name, phone, id }, thunkAPI) => {
+>("contacts/updateContact", async ({ name, number, id }, thunkAPI) => {
   try {
-    const { data } = await axios.patch(`/contacts/${id}`, { name, phone });
+    const { data } = await axios.patch(`/contacts/${id}`, { name, number });
 
     return data as Contact;
   } catch (error) {

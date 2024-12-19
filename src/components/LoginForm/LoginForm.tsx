@@ -1,20 +1,25 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-// import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+
 import { logIn } from "../../redux/auth/operations";
+import { LoginUser } from "../../redux/auth/types";
 import { loginSchema } from "../../helpers/loginSchema";
+import { useAppDispatch } from "../../hooks/hook";
+
 import s from "./LoginForm.module.css";
 
-const initialValues = {
+const initialValues: LoginUser = {
   email: "",
   password: "",
 };
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
+const LoginForm: React.FC = () => {
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (values, options) => {
+  const handleSubmit = (
+    values: LoginUser,
+    options: FormikHelpers<LoginUser>
+  ) => {
     dispatch(logIn(values));
     options.resetForm();
   };

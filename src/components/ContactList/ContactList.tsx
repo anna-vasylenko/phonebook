@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
 import Contact from "../Contact/Contact";
-import s from "./ContactList.module.css";
+
 import { selectFilteredContacts } from "../../redux/filters/selectors";
+import { useAppSelector } from "../../hooks/hook";
+
+import s from "./ContactList.module.css";
 
 const ContactList: React.FC = () => {
-  const filteredContacts = useSelector(selectFilteredContacts);
+  const filteredContacts = useAppSelector(selectFilteredContacts);
   return (
     <ul className={s.contactsList}>
       {filteredContacts.map((contact) => (

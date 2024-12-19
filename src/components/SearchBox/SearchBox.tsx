@@ -1,11 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import s from "./SearchBox.module.css";
+import React from "react";
+
 import { selectNameFilter } from "../../redux/filters/selectors";
 import { changeFilter } from "../../redux/filters/slice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 
-const SearchBox = () => {
-  const dispatch = useDispatch();
-  const filterValue = useSelector(selectNameFilter);
+import s from "./SearchBox.module.css";
+
+const SearchBox: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const filterValue = useAppSelector(selectNameFilter);
+
   return (
     <div className={s.wrapper}>
       <label className={s.label}>

@@ -1,24 +1,24 @@
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
-import { contactSchema } from "../../helpers/contactSchema";
-import s from "./ContactForm.module.css";
-import { useAppDispatch } from "../../hooks/hook";
-import { InitialValue } from "./ContactForm.types";
 import React from "react";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+
+import { addContact } from "../../redux/contacts/operations";
 import { NewContact } from "../../redux/contacts/types";
+import { contactSchema } from "../../helpers/contactSchema";
+import { useAppDispatch } from "../../hooks/hook";
+
+import s from "./ContactForm.module.css";
 
 const initialValues: NewContact = {
   name: "",
-  phone: "",
+  number: "",
 };
 
 const ContactForm: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = (
-    values: InitialValue,
-    options: FormikHelpers<InitialValue>
+    values: NewContact,
+    options: FormikHelpers<NewContact>
   ) => {
     const newContact = values;
     dispatch(addContact(newContact));
@@ -26,7 +26,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <Formik
+    <Formik<NewContact>
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={contactSchema}
@@ -40,8 +40,8 @@ const ContactForm: React.FC = () => {
 
         <label className={s.label}>
           Number
-          <Field type="text" name="phone" className={s.input} />
-          <ErrorMessage name="phone" component="span" className={s.message} />
+          <Field type="text" name="number" className={s.input} />
+          <ErrorMessage name="number" component="span" className={s.message} />
         </label>
         <button type="submit" className={s.button}>
           Add Contact

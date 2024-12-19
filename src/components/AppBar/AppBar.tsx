@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
+import { Link } from "react-router-dom";
+
 import Navigation from "../Navigation/Navigation";
 import UserMenu from "../UserMenu/UserMenu";
 import AuthNav from "../AuthNav/AuthNav";
-import s from "./AppBar.module.css";
-import { Link } from "react-router-dom";
+
+import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
 import { useAppSelector } from "../../hooks/hook";
+
+import s from "./AppBar.module.css";
 
 const AppBar: React.FC = () => {
   const user = useAppSelector(selectUser);

@@ -1,6 +1,6 @@
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 
-const RegistrationPage = () => {
+const RegistrationPage: React.FC = () => {
   return (
     <div className="pageWrapper">
       <h2 className="pageTitle">Registration</h2>

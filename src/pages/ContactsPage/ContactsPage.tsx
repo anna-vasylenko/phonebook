@@ -1,23 +1,26 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import ContactForm from "../../components/ContactForm/ContactForm";
 import ContactList from "../../components/ContactList/ContactList";
 import Loader from "../../components/Loader/Loader";
 import SearchBox from "../../components/SearchBox/SearchBox";
+import ContactUpdateForm from "../../components/ContactUpdateForm/ContactUpdateForm";
+
 import {
   selectCurrentContact,
   selectError,
   selectLoading,
 } from "../../redux/contacts/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
-import s from "./ContactsPage.module.css";
-import ContactUpdateForm from "../../components/ContactUpdateForm/ContactUpdateForm";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 
-const ContactsPage = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading);
-  const isError = useSelector(selectError);
-  const currentContact = useSelector(selectCurrentContact);
+import s from "./ContactsPage.module.css";
+
+const ContactsPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(selectLoading);
+  const isError = useAppSelector(selectError);
+  const currentContact = useAppSelector(selectCurrentContact);
 
   useEffect(() => {
     dispatch(fetchContacts());

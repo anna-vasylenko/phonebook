@@ -1,9 +1,10 @@
 import { Suspense } from "react";
-import AppBar from "../AppBar/AppBar";
-import Loader from "../Loader/Loader";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+import AppBar from "../AppBar/AppBar";
+import Loader from "../Loader/Loader";
+
+const Layout: React.FC = () => {
   return (
     <div>
       <AppBar />

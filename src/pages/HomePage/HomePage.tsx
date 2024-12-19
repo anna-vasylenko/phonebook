@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import s from "./HomePage.module.css";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
 
-const HomePage = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { useAppSelector } from "../../hooks/hook";
+
+import s from "./HomePage.module.css";
+
+const HomePage: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   return (
     <>
       <div className={s.homePage}>

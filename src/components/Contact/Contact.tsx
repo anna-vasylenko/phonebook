@@ -1,14 +1,15 @@
+import React from "react";
 import { FaRegUser } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import s from "./Contact.module.css";
+
 import { deleteContact } from "../../redux/contacts/operations";
 import { setCurrentContact } from "../../redux/contacts/slice";
-import React from "react";
-import { Contact } from "../../redux/contacts/types";
 import { useAppDispatch } from "../../hooks/hook";
+import { ContactType } from "./Contact.types";
 
-const Contact: React.FC<Contact> = ({ id, name, phone }: Contact) => {
+import s from "./Contact.module.css";
+
+const Contact: React.FC<ContactType> = ({ id, name, number }: ContactType) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -20,7 +21,7 @@ const Contact: React.FC<Contact> = ({ id, name, phone }: Contact) => {
         </div>
         <div className={s.iconWrapper}>
           <MdPhoneIphone />
-          <p className={s.number}>{phone}</p>
+          <p className={s.number}>{number}</p>
         </div>
       </div>
       <div className={s.buttonsWraper}>
@@ -32,7 +33,7 @@ const Contact: React.FC<Contact> = ({ id, name, phone }: Contact) => {
         </button>
         <button
           className={s.changeButton}
-          onClick={() => dispatch(setCurrentContact({ id, name, phone }))}
+          onClick={() => dispatch(setCurrentContact({ id, name, number }))}
         >
           Update
         </button>
